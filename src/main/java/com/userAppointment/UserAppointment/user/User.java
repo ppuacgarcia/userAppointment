@@ -24,6 +24,16 @@ public class User{
     public User() {
     }
 
+    public User(UUID id, String name, Long cui, boolean status, String telephone, String email, LocalDate createdAt) {
+        this.id = id;
+        this.name = name;
+        this.cui = cui;
+        this.status = status;
+        this.telephone = telephone;
+        this.email = email;
+        this.createdAt = createdAt;
+    }
+
     public User(String name, Long cui, boolean status, String telephone, String email, LocalDate createdAt) {
         this.name = name;
         this.cui = cui;
