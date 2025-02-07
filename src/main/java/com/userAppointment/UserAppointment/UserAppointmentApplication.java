@@ -1,4 +1,4 @@
-package com.postgresql.UserAppointment;
+package com.userAppointment.UserAppointment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,7 @@ public class UserAppointmentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UserAppointmentApplication.class, args);
 	}
+
+
 
 }

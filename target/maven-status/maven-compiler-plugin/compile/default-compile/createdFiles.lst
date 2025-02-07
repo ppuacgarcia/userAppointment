@@ -1,2 +1,4 @@
-com/postgresql/UserAppointment/UserAppointmentApplication.class
-com/postgresql/UserAppointment/model/Person.class
+com/userAppointment/UserAppointment/user/Users.class
+com/userAppointment/UserAppointment/UserAppointmentApplication.class
+com/userAppointment/UserAppointment/user/UserService.class
+com/userAppointment/UserAppointment/user/UserController.class
