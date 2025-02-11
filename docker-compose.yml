@@ -1,0 +1,45 @@
+# docker-compose.yml
+# Este archivo define cómo se conectan y ejecutan los servicios
+version: '3.8'
+
+services:
+  # Servicio de la aplicación Spring Boot
+  app:
+    build: .                     # Usa el Dockerfile local
+    container_name: spring-app   # Nombre del contenedor
+    ports:
+      - "8080:8080"             # Puerto host:contenedor
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/appointmentuser
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - db                      # Espera a que db esté listo
+    networks:
+      - app-network             # Red para comunicación entre contenedores
+
+  # Servicio de PostgreSQL
+  db:
+    image: postgres:15-alpine   # Usa imagen oficial de PostgreSQL
+    container_name: postgres-db # Nombre del contenedor
+    ports:
+      - "5432:5432"            # Puerto host:contenedor
+    environment:
+      - POSTGRES_DB=appointmentuser
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistencia de datos
+    networks:
+      - app-network             # Misma red que la app
+
+# Definición de volúmenes
+volumes:
+  postgres_data:
+    name: postgres_data         # Volumen para persistir datos de PostgreSQL
+
+# Definición de redes
+networks:
+  app-network:
+    driver: bridge             # Tipo de red para comunicación entre contenedores
