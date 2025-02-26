@@ -1,5 +1,6 @@
 package com.userAppointment.UserAppointment.user;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +24,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> newUser(@RequestBody User user){
+    public ResponseEntity<Object> newUser(@Valid @RequestBody UserDTO user){
         return this.UserService.newUser(user);
     }
+
     @PutMapping(path = "{userId}")
     public ResponseEntity<Object> updateUser(
             @PathVariable("userId") UUID userId,
-            @RequestBody User userDetails) {
+            @RequestBody UserDTO userDetails) {
         return this.UserService.updateUser(userId, userDetails);
     }
 

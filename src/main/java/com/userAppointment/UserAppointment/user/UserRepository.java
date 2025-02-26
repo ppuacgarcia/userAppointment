@@ -9,6 +9,6 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    Optional<User> findByCui(Long cui);
-
+    Optional<User> findByCui(String cui);
+    Optional<User> findByUserName(String userName);
 }

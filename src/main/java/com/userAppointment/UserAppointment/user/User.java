@@ -1,11 +1,12 @@
 package com.userAppointment.UserAppointment.user;
+import com.userAppointment.UserAppointment.role.Role;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "\"app_user\"")
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -13,38 +14,47 @@ public class User{
 
     private String name;
 
-    @Column(unique = true)
-    private Long cui;
+    @Column(unique = true, nullable = false)
+    private String cui;
+
+    @Column(unique = true, nullable = false, name ="user_name")
+    private String userName;
 
     private boolean status;
+
     private String telephone;
     private String email;
-    private LocalDate createdAt;
+    private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    private LocalDate birthDate;
+
 
     public User() {
     }
 
-    public User(UUID id, String name, Long cui, boolean status, String telephone, String email, LocalDate createdAt) {
-        this.id = id;
-        this.name = name;
-        this.cui = cui;
-        this.status = status;
-        this.telephone = telephone;
-        this.email = email;
-        this.createdAt = createdAt;
+    public User(UserDTO dto) {
+        this.name = dto.getName();
+        this.cui = dto.getCui();
+        this.userName = dto.getUserName();
+        this.status = dto.isStatus();
+        this.telephone = dto.getTelephone();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.birthDate = dto.getBirthDate();
+        this.role = dto.getRole();  // Añadir el rol desde el DTO
     }
 
-    public User(String name, Long cui, boolean status, String telephone, String email, LocalDate createdAt) {
-        this.name = name;
-        this.cui = cui;
-        this.status = status;
-        this.telephone = telephone;
-        this.email = email;
-        this.createdAt = createdAt;
-    }
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -55,12 +65,20 @@ public class User{
         this.name = name;
     }
 
-    public Long getCui() {
+    public String getCui() {
         return cui;
     }
 
-    public void setCui(Long cui) {
+    public void setCui(String cui) {
         this.cui = cui;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public boolean isStatus() {
@@ -87,11 +105,27 @@ public class User{
         this.email = email;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 }
